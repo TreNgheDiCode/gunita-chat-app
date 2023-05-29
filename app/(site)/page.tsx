@@ -31,7 +31,7 @@ export default function Home() {
                 />
                 <h2
                     className="
-                        mt-6
+                        mt-2
                         text-center
                         text-3xl
                         font-bold
