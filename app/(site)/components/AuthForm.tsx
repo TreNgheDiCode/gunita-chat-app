@@ -13,6 +13,8 @@ import {
 } from "react-hook-form";
 import AuthSocialButton from "./AuthSocialButton";
 import axios from 'axios';
+import { toast } from 'react-hot-toast';
+import { signIn } from 'next-auth/react';
 
 type Variant = 'LOGIN' | 'REGISTER';
 
@@ -44,18 +46,44 @@ const AuthForm = () => {
         setIsLoading(true);
 
         if (variant == 'REGISTER') {
-            axios.post('/api/register', data);
+            axios.post('/api/register', data)
+            .then(() => toast.success('Đăng ký thành công'))
+            .catch(() => toast.error('Vui lòng nhập đầy đủ thông tin'))
+            .finally(() => setIsLoading(false));
         }
 
         if (variant == 'LOGIN') {
-            // NextAuth Sign In
+            signIn('credentials', {
+                ...data,
+                redirect: false
+            })
+            .then((callback) => {
+                if (callback?.error) {
+                    toast.error("Sai thông tin tài khoản");
+                }
+
+                if (callback?.ok && !callback?.error) {
+                    toast.success("Đăng nhập thành công");
+                }
+            })
+            .finally(() => setIsLoading(false));
         }
     }
 
     const socialAction = (action:string) => {
         setIsLoading(true);
 
-        //NextAuth Social Sign In
+        signIn(action, { redirect: false })
+        .then((callback) => {
+            if (callback?.error) {
+                toast.error("Sai thông tin tài khoản");
+            }
+
+            if (callback?.ok && !callback?.error) {
+                toast.success("Đăng nhập thành công");
+            }
+        })
+        .finally(() => setIsLoading(false));
     }
 
     return ( 
