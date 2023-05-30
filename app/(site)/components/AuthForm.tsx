@@ -12,6 +12,7 @@ import {
     useForm 
 } from "react-hook-form";
 import AuthSocialButton from "./AuthSocialButton";
+import axios from 'axios';
 
 type Variant = 'LOGIN' | 'REGISTER';
 
@@ -43,7 +44,7 @@ const AuthForm = () => {
         setIsLoading(true);
 
         if (variant == 'REGISTER') {
-            // Axios Register
+            axios.post('/api/register', data);
         }
 
         if (variant == 'LOGIN') {
