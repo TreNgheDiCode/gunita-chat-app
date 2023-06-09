@@ -53,7 +53,7 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
 
     const lastMessageText = useMemo(() => {
         if (lastMessage?.image) {
-            return 'Gửi một hình ảnh';
+            return 'đã gửi 1 ảnh';
         }
 
         if (lastMessage?.body) {
