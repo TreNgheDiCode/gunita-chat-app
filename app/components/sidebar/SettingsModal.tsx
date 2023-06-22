@@ -133,7 +133,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                                         uploadPreset="lz6eovct"
                                     >
                                         <Button
-                                            disable={isLoading}
+                                            disabled={isLoading}
                                             secondary
                                             type="button"
                                         >
